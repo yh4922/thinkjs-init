@@ -4,9 +4,28 @@ const nunjucks = require('think-view-nunjucks');
 const JWTSession = require('think-session-jwt');
 const mongoose = require('think-mongoose');
 const {Console, File, DateFile} = require('think-logger3');
+const ws = require('think-websocket-ws');
 const path = require('path');
 const isDev = think.env === 'development';
 
+
+/**
+ * websocket配置
+ * websocket adapter config
+ * @type {Object}
+ */
+exports.websocket = {
+  type: 'ws',
+  common: {},
+  ws: {
+    handle: ws,
+    path: '/ws',  
+    messages: [{
+      test: '/socketio/test', // 链接打开
+      /*socket事件对应的控制器*/
+    }]
+  }
+}
 
 /**
  * cache adapter config
