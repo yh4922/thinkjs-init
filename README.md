@@ -5,6 +5,7 @@
 - [think-mongoose](https://github.com/thinkjs/think-mongoose) - mongose库
 - [think-websocket](https://github.com/thinkjs/think-websocket),[think-websocket-ws](https://github.com/thinkjs/think-websocket-ws) - webSocket连接库
 - [think-session-jwt](https://github.com/thinkjs/think-session-jwt) - jwt签名校验
+- [koa-cors](https://github.com/evert0n/koa-cors) - http请求跨域处理
 
 ***
 ## 安装流程

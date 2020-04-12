@@ -10,6 +10,9 @@ module.exports = [
     }
   },
   {
+    handle: cors
+  },
+  {
     handle: 'resource',
     enable: isDev,
     options: {
@@ -36,5 +39,6 @@ module.exports = [
     options: {}
   },
   'logic',
+  'indextest',
   'controller'
 ];
