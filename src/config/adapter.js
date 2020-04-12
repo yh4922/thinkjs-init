@@ -1,10 +1,12 @@
 const fileCache = require('think-cache-file');
 const nunjucks = require('think-view-nunjucks');
-const fileSession = require('think-session-file');
+// const fileSession = require('think-session-file');
+const JWTSession = require('think-session-jwt');
 const mongoose = require('think-mongoose');
 const {Console, File, DateFile} = require('think-logger3');
 const path = require('path');
 const isDev = think.env === 'development';
+
 
 /**
  * cache adapter config
@@ -49,21 +51,32 @@ exports.model = {
 /**
  * session adapter config
  * @type {Object}
+ * // 获取Token
+ * var token =  await this.session('key')
+ *  if (!token) {
+ *    return this.fail(1003, 'Login exception');
+ *  }
+ *
+ *  // 设置Token
+ *  var token = await this.session('key', data) // 生成Token
  */
 exports.session = {
-  type: 'file',
+  type: 'jwt',
   common: {
     cookie: {
-      name: 'thinkjs'
-      // keys: ['werwer', 'werwer'],
-      // signed: true
+      name: 'thinkjs',
     }
   },
-  file: {
-    handle: fileSession,
-    sessionPath: path.join(think.ROOT_PATH, 'runtime/session')
+  jwt: {
+    handle: JWTSession,
+    secret: 'hgzxcsa472135', // secret is reqired // 密钥
+    tokenType: 'header', // ['query', 'body', 'header', 'cookie'], 'cookie' is default // token来源 header
+    tokenName: 'jwt', // if tokenType not 'cookie', this will be token name, 'jwt' is default // token 名字
+    sign: {},
+    verify: {},
+    verifyCallback: any => any, // default verify fail callback
   }
-};
+}
 
 /**
  * view adapter config
