@@ -1,7 +1,7 @@
 const fileCache = require('think-cache-file');
 const nunjucks = require('think-view-nunjucks');
 const fileSession = require('think-session-file');
-const mysql = require('think-model-mysql');
+const mongoose = require('think-mongoose');
 const {Console, File, DateFile} = require('think-logger3');
 const path = require('path');
 const isDev = think.env === 'development';
@@ -23,29 +23,28 @@ exports.cache = {
   }
 };
 
-/**
- * model adapter config
- * @type {Object}
- */
+// 使用用户授权连接
+// exports.model = {
+//   type: 'mongoose',
+//   mongoose: {
+//     handle: mongoose,
+//     host: '192.168.1.148',
+//     user: 'bbstest',
+//     password: '123456',
+//     database: 'bbstest',
+//     useCollectionPlural: false,
+//     options: {}
+//   }
+// }
+// 不需要用户密码连接
 exports.model = {
-  type: 'mysql',
-  common: {
-    logConnect: isDev,
-    logSql: isDev,
-    logger: msg => think.logger.info(msg)
-  },
-  mysql: {
-    handle: mysql,
-    database: '',
-    prefix: 'think_',
-    encoding: 'utf8',
-    host: '127.0.0.1',
-    port: '',
-    user: 'root',
-    password: 'root',
-    dateStrings: true
+  type: 'mongoose',
+  mongoose: {
+    handle: mongoose,
+    connectionString: 'mongodb://localhost:27017/sn_tongji',
+    options: { config: {autoIndex: false} }
   }
-};
+}
 
 /**
  * session adapter config
